@@ -92,6 +92,31 @@
 
 -   3. Investigar acerca de la ejecución de programas con interfaz gráfica dentro de contenedores Docker.
 
+Proporcionar un contenedor Docker con acceso al socket X de su host es un procedimiento sencillo. La toma X se
+encuentra en /tmp/.X11-unix en su anfitrión. El contenido de este directorio debe montarse en un volumen de Docker
+asignado al contenedor. Necesitará utilizar el host modo de red para que esto funcione.
+También debe proporcionar al contenedor un DISPLAY Variable ambiental. Esto le dice a los clientes X, sus programas de
+gráficos, a qué servidor X conectarse. Ajustar DISPLAY en el contenedor por el valor de $DISPLAY en su anfitrión.
+Puede envolver toda esta configuración en una docker-compose.yml depositar:
+
+![image](https://user-images.githubusercontent.com/79063417/169719112-5b233601-fd6f-4f9c-833d-32e090f5b803.png)
+
+Entonces necesitas crear un Dockerfile para su aplicación. A continuación, se muestra un ejemplo que ejecuta el
+navegador web Firefox:
+
+![image](https://user-images.githubusercontent.com/79063417/169719498-d82d9350-e70b-408c-85ab-ac0c028f6f51.png)
+
+Ahora crea y ejecuta la imagen:
+
+![image](https://user-images.githubusercontent.com/79063417/169719507-9e255523-1760-4838-87a9-79d2ae63d5cb.png)
+
+Debería aparecer una nueva ventana de Firefox en su escritorio. La instancia de Firefox se ejecutará en el contenedor,
+independientemente de cualquier otra ventana abierta de Firefox. El contenedor compartirá el socket X de su host, por lo
+que Firefox en contenedor siempre aparecerá en su escritorio.
+Este enfoque solo debe usarse cuando confía en su contenedor Docker. Exponer el servidor de visualización del host es un
+riesgo de seguridad si no está completamente seguro de lo que hay dentro del contenedor.
+CUESTIONARIO
+
 #
 
 ## CUESTIONARIO
