@@ -107,8 +107,18 @@
     docker commit 3b8a51367a21 cdp22image
     ```
 
-  
-  
+ - Proseguimos por correr la imagen en los puertos deseados y de la siguiente forma para habilitar los puertos:
+    ```sh
+    docker run -it -p 5673:80 -d cdp22image
+    ```
+    
+ - Revisamos para saber si esta corriendo:
+    ```sh
+    docker ps
+    ```
+ - Probamos en la maquina anfitrion
+  ![image](https://user-images.githubusercontent.com/79063417/169735561-1783b392-16c4-42d4-9239-58f853edfaa5.png)
+
 
 -   2. Crear dos contenedores que puedan comunicarse: ping.
 
