@@ -68,6 +68,48 @@
     ```sh
     docker run -p 8088:80 rcd22image
     ```
+
+-   Crear un contenedor con las siglas del curso y el año actual
+    ```sh
+    docker run -it --name cdp22 ubuntu
+    ```
+    ```sh
+    docker -ps -a
+    CONTAINER ID   IMAGE         COMMAND    CREATED              STATUS                          PORTS     NAMES
+    5f934a64ee98   ubuntu        "bash"     About a minute ago   Exited (0) About a minute ago             cdp22
+
+    ```
+   
+-   Trabaje dentro del contenedor que acaba de crear: 
+    -   Instale el servidor Web Apache HTTP server 2.x
+    -   Tener un firewall UFW configurado para que restrinja el acceso a su servidor.
+    -   Inicie por defecto Apache2.
+    -   Cree una pagina de Bienvenida.
+
+        ```sh
+        root@3b8a51367a21:/# apt-get update
+        root@3b8a51367a21:/# apt-get install apache2
+        root@3b8a51367a21:/# /etc/init.d/apache2 status
+        root@3b8a51367a21:/# /etc/init.d/apache2 start
+        root@3b8a51367a21:/# /etc/init.d/apache2 status
+        root@3b8a51367a21:/# apt-get install ufw
+        root@3b8a51367a21:/# ufw app list
+        root@3b8a51367a21:/# ufw allow 'Apache'
+        root@3b8a51367a21:/# ufw app list
+        root@3b8a51367a21:/# apt-get install systemctl
+        root@3b8a51367a21:/# systemctl enable apache2
+        root@3b8a51367a21:/# echo "Bienvenido a mi contenedor Docker para CDP22" > /var/www/html/index.html
+        root@3b8a51367a21:/# echo "Atentamente, Leonardo Deza Carrasco" >> /var/www/html/index.html
+        root@3b8a51367a21:/# cat /var/www/html/index.html
+        ```  
+-   crear una imagen  a partir de un contenedor:
+    ```sh
+    docker commit 3b8a51367a21 cdp22image
+    ```
+
+  
+  
+
 -   2. Crear dos contenedores que puedan comunicarse: ping.
 
 - Iniciamos las imagenes en la misma red.
